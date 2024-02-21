@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
   public static SoundManager Instance { get; private set; }
   public AudioSource audioSource;
   public AudioClip[] catsSounds;
+
+  public AudioClip winSound;
 private void Awake() 
 { 
     // If there is an instance, and it's not me, delete myself.
@@ -22,7 +24,7 @@ private void Awake()
     } 
 }
 
-private void PlayShot(AudioClip clip)
+public void PlayShot(AudioClip clip)
 {
     audioSource.PlayOneShot(clip);
 }

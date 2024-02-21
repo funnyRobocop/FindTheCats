@@ -8,8 +8,13 @@ public class TogglePanel : MonoBehaviour
     public void Toggle()
     {
         if (panel != null)
+        {   if(UIManager.Instance!= null)
         {
-            UIManager.Instance.ReverseMove();
+            if(UIManager.Instance.wasStarted)
+            {
+                UIManager.Instance.ReverseMove();
+            }}
+            
             panel.SetActive(!panel.activeSelf);
         }
     }

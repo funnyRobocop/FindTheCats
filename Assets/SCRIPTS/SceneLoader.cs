@@ -8,7 +8,15 @@ public class SceneLoader : MonoBehaviour
         // Получение текущей активной сцены и её индекса
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Загрузка следующей сцены по индексу
-        SceneManager.LoadScene(currentSceneIndex + 1);
+       
+        if( currentSceneIndex<4)
+        
+             {SceneManager.LoadScene(currentSceneIndex + 1);
+             }
+             else 
+             {SceneManager.LoadScene(0);
+             }
+        
+        
     }
 }

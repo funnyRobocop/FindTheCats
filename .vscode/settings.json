@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "FindTheCat.sln"
+    "dotnet.defaultSolution": "GP_FindTheCat.sln"
 }
