@@ -11,6 +11,16 @@ public class UIManager : MonoBehaviour
     public int CatToWin = 10;
     public GameObject winPanel;
 
+    public Animator winPanelAnimator;
+
+    public Vector3 winPosition;
+
+    public Camera _camera;
+    
+    public int cameraSize;
+
+    public bool wasStarted = false;
+
     public CameraDrag cameraDrag;
      public  List<CatsClick> allCats = new List<CatsClick>(); // Список всех котов
 
@@ -30,6 +40,11 @@ private void Awake()
 
 
 }
+private void Start() 
+{
+UpdateUI();
+    
+}
 public void ReverseMove()
 {
     if (cameraDrag!=null)
@@ -43,7 +58,7 @@ public void AddCat()
 }
 public void UpdateUI()
 {
-   catCountText.text = $"Найдено котиков: {catsCount}/30";
+   catCountText.text = $"Найдено котиков: {catsCount}/{CatToWin}";
 }
 
 public void WinCheck()
@@ -51,18 +66,45 @@ public void WinCheck()
     if(catsCount>=CatToWin)
     {
         winPanel.SetActive(true);
+        winPanelAnimator.SetTrigger("isHide");
+        _camera.orthographicSize = cameraSize;
+        _camera.transform.position = winPosition;
+        cameraDrag.enabled = false;
+        SoundManager.Instance.PlayShot(SoundManager.Instance.winSound);
     }
 }
 
  public  void ClickRandomCat()
+
     {
+        if(wasStarted)
+        {
+
+        
+        if(catsCount!=CatToWin)
+        {
         if (allCats.Count > 0)
         {
             int randomIndex = Random.Range(0, allCats.Count); // Выбор случайного индекса
             CatsClick randomCat = allCats[randomIndex];
 
-            // Вызов метода OnMouseDown для случайного кота
-            randomCat.OnMouseDown();
+            for(int i = 0; i< allCats.Count; i++)
+            {
+                if(allCats[i].wasClicked == false)
+                {
+                    allCats[i].OnMouseDown();
+                    randomCat = allCats[i];
+                    break;
+                }
+            }
+
+            
+            if(catsCount!=CatToWin)
+            {
+            _camera.transform.position = new Vector3(randomCat.transform.position.x,randomCat.transform.position.y, -10);
+            }
+        }
+        }
         }
     }
 }

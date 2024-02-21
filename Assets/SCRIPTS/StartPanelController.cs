@@ -3,6 +3,7 @@ using UnityEngine;
 public class StartPanelController : MonoBehaviour
 {
     public GameObject panel; // Ссылка на панель
+    public GameObject settingsPanel;
     
 
     void Start()
@@ -13,7 +14,9 @@ public class StartPanelController : MonoBehaviour
 
     public void ClosePanel()
     {
+        UIManager.Instance.wasStarted = true;
         UIManager.Instance.ReverseMove();
         panel.SetActive(false);
+        settingsPanel.SetActive(false);
     }
 }
